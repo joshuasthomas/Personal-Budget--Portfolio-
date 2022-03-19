@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const envelopesRouter = require("./apiEnvelopes.js");
 
 /* Do not change the following line! It is required for testing and allowing
 *  the frontend application to interact as planned with the api server
@@ -17,6 +18,8 @@ app.use(bodyParser.json());
 app.get('/', (req, res, next) => {
     res.send("Hello world!");
 })
+
+app.use("/envelopes", envelopesRouter);
 
 
 // Add your code to start the server listening at PORT below:
