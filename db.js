@@ -17,11 +17,10 @@ const getAllEnvelopes = () => {
     return envelopes;
 };
 
-const getEnvelopeById = (id) => {
+const findEnvelopeById = (id) => {
     for(i=0; i < envelopes.length; i++) {
-        let envelope = envelopes[i];
-        if(envelope.id == id) {
-            return envelope;
+        if(envelopes[i].id == id) {
+            return envelopes[i];
         }
     }
     return null;
@@ -31,7 +30,18 @@ const getTotalBudget = () => {
     return totalbudget;
 }
 
-module.exports = { addEnvelope, getAllEnvelopes, getEnvelopeById, getTotalBudget };
+const deleteEnvelopeById = (id) => {
+    for(i=0; i < envelopes.length; i++) { //may use array.filter instead
+        if(envelopes[i].id == id) {
+            const removedEle =  envelopes.splice(i, 1);
+            calculateBudget();
+            return removedEle;
+        }
+    }
+    return null;
+};
+
+module.exports = { addEnvelope, getAllEnvelopes, findEnvelopeById, getTotalBudget, deleteEnvelopeById };
 
 /*
     Envelope JSON structure is as follows,

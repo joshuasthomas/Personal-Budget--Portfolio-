@@ -12,7 +12,7 @@ envelopesRouter.post("/", (req, res, next) => {
         console.log(`Total budget is ${db.getTotalBudget()}`)
         res.status(201).send();
     } else {
-        res.status(400).send("Envelop data is not in JSON format!");
+        res.status(400).send("Envelope data is not in JSON format!");
     }
 });
 
@@ -22,9 +22,18 @@ envelopesRouter.param('envelopeId', (req, res, next, id) => {
 });
 
 envelopesRouter.get("/:envelopeId", (req, res, next) => {
-    const getEnvelope = db.getEnvelopeById(req.params.envelopeId);
+    const getEnvelope = db.findEnvelopeById(req.params.envelopeId);
     if(getEnvelope) {
         res.send(getEnvelope);
+    } else {
+        res.status(404).send();
+    }
+});
+
+envelopesRouter.delete("/:envelopeId", (req, res, next) => {
+    const removedEnvelope = db.deleteEnvelopeById(req.params.envelopeId);
+    if(removedEnvelope) {
+        res.status(204).send();
     } else {
         res.status(404).send();
     }
