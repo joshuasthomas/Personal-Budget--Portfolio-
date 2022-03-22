@@ -16,6 +16,15 @@ envelopesRouter.post("/", (req, res, next) => {
     }
 });
 
+envelopesRouter.put("/", (req, res, next) => {
+    const updEnvelope = db.updateEnvelope(req.body);
+    if(updEnvelope) {
+        res.send(updEnvelope);
+    } else {
+        res.status(400).send();
+    }
+});
+
 envelopesRouter.param('envelopeId', (req, res, next, id) => {
     //tbd
     next()
@@ -30,6 +39,8 @@ envelopesRouter.get("/:envelopeId", (req, res, next) => {
     }
 });
 
+// FUTURE: Add new PUT method to update by envelope object key
+
 envelopesRouter.delete("/:envelopeId", (req, res, next) => {
     const removedEnvelope = db.deleteEnvelopeById(req.params.envelopeId);
     if(removedEnvelope) {
@@ -39,6 +50,25 @@ envelopesRouter.delete("/:envelopeId", (req, res, next) => {
     }
 })
 
+
+//transfer balance between envelopes using '?amount=' query
+
+envelopesRouter.put("/:fromId/:toId", (req, res, next) => {
+    const fromId = req.params.fromId;
+    const toId = req.params.toId;
+    const amount = parseInt(req.query.amount);  //convert to integer
+
+    if(amount) {
+        if(amount > 0) {
+            const toEnvelope = db.transferEnvelopeBudget(fromId, toId, amount);
+            return toEnvelope ? res.send(toEnvelope) : res.status(400).send();
+        } else {
+            res.status(400).send("Set amount value to be more than zero.");
+        }
+    } else {
+        res.status(400).send("Amount value is not valid.");
+    }
+});
 
 
 module.exports = envelopesRouter;

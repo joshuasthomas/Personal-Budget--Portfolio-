@@ -30,6 +30,36 @@ const getTotalBudget = () => {
     return totalbudget;
 }
 
+const transferEnvelopeBudget = (fromId, toId, amount) => {
+    const fromEnvelope = findEnvelopeById(fromId);
+    const toEnvelope = findEnvelopeById(toId);
+    
+    if(fromEnvelope && toEnvelope) {
+        fromEnvelope.cost -= amount;
+        toEnvelope.cost += amount;
+        calculateBudget();
+
+        return toEnvelope;
+    } else {
+        return null;
+    }
+};
+
+const updateEnvelope = (envelope) => {
+    const validIndex = envelopes.findIndex((ele) => {
+        //console.log(`ele id is ${ele.id} and envelope id is ${envelope.id}`);
+        return ele.id === envelope.id;
+    });
+
+    if(validIndex > -1) {
+        envelopes[validIndex] = envelope;
+        calculateBudget();
+        return envelopes[validIndex];
+    } else {
+        return null;
+    }
+};
+
 const deleteEnvelopeById = (id) => {
     for(i=0; i < envelopes.length; i++) { //may use array.filter instead
         if(envelopes[i].id == id) {
@@ -41,7 +71,15 @@ const deleteEnvelopeById = (id) => {
     return null;
 };
 
-module.exports = { addEnvelope, getAllEnvelopes, findEnvelopeById, getTotalBudget, deleteEnvelopeById };
+module.exports = { 
+    addEnvelope, 
+    getAllEnvelopes, 
+    findEnvelopeById, 
+    getTotalBudget, 
+    deleteEnvelopeById,
+    updateEnvelope,
+    transferEnvelopeBudget
+};
 
 /*
     Envelope JSON structure is as follows,
