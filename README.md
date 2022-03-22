@@ -11,6 +11,7 @@ This is a personal implementation of the Personal Budget portfolio project set b
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [APIs](#apis)
+* [Schema](#schema)
 * [Contact](#contact)
 
 ## Technologies
@@ -28,8 +29,12 @@ First, clone the repository to your local machine. Then open the root project di
 - `/envelopes`
     - GET `/envelopes` to get array of envelopes
     - POST `/envelopes` to create a new instance of envelopes
+    - PUT `/envelopes` to update an existing envelope
     - GET `/envelopes/:envelopeId` to a single envelope instance based on the envelope `id`.
     - DELETE `/envelopes/:envelopeId` to delete a single envelope by id.
+    - PUT `/envelopes/:fromId/:toId?amount=` to transfer a budget value `amount` from the envelope `fromId` to envelope `toId`
+- `/budget`
+    - GET `/budget` to get the total budget of all envelopes
 
 ## Schema
 
@@ -37,9 +42,9 @@ Data representation of an envelope instance is based on JSON as shown below
 
 ```json
 {
-    id: "1",
-    category: "Groceries",
-    cost: 150
+    "id": "1",
+    "category": "Groceries",
+    "cost": 150
 }
 ```
 ## Contact

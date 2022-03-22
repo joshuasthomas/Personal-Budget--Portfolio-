@@ -8,9 +8,11 @@ const addEnvelope = (newInstance) => {
 };
 
 const calculateBudget = () => {
+    let sumBudget = 0;
     envelopes.forEach(env => {
-        totalbudget += env.cost;
-    })
+        sumBudget += env.cost;
+    });
+    totalbudget = sumBudget;
 };
 
 const getAllEnvelopes = () => {
