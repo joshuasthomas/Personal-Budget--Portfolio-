@@ -1,4 +1,4 @@
-# Personal Budget (Portfolio) - under construction
+# Personal Budget (Portfolio)
 
 A Node.js and Express application to manage your personal budget via the use of Envelope Budgeting method.
 
@@ -47,5 +47,12 @@ Data representation of an envelope instance is based on JSON as shown below
     "cost": 150
 }
 ```
+
+## Future enhancements
+
+- Create a frontend that displays envelopes and balances, and allows users to update each envelop balance
+- Add an API endpoint allowing user to add a single balance that’s distributed to multiple envelopes
+
 ## Contact
 
+Created by Joshua S. Thomas

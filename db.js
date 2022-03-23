@@ -39,6 +39,8 @@ const transferEnvelopeBudget = (fromId, toId, amount) => {
     if(fromEnvelope && toEnvelope) {
         fromEnvelope.cost -= amount;
         toEnvelope.cost += amount;
+
+        //consider if transfer amount can be done???
         calculateBudget();
 
         return toEnvelope;
